@@ -8,8 +8,6 @@ var config = require('./serverApp/config/init')[env];
 
 require('./serverApp/config/express')(express, app, config);
 
-require('./serverApp/config/mongoose')(config.dbUrl);
-
 require('./serverApp/routes/userRoutes')(app);
 require('./serverApp/routes/watsonplatformRoute')(app);
 require('./serverApp/routes/orgRoute')(app);
