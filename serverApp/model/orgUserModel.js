@@ -52,7 +52,7 @@ OrgUserModel.prototype.createOrgUser = function(record){
 												from: 'care.trustfactor@gmail.com',
 												to: email,
 												subject: 'My Subject',
-												body: 'My body',
+												body: 'Hi Nilesh Dethe,\r\n\r\nThank you for your interest in TheTruth Factor! We are pleased to inform you that you have registered successfully.\r\nPlease use the following credentials:\r\nUsername - \r\nPassword - \r\n\r\nCheers!\r\nTeam Trust Factor.',
 												callback: function(err, data){
 													if(err){
 														that.serverResponse.error = 1;

@@ -109,5 +109,14 @@ module.exports = function(app) {
 			res.send(err);
 		});
 	});
+	
+	app.post('/getuserbyemail', function(req, res){
+		UserModel.getUserByEmail(req.body).then(function(response){
+			res.send(response);
+		}, function(err){
+			res.status(400);
+			res.send(err);
+		});
+	});
 
 };
