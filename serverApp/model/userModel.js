@@ -1,3 +1,4 @@
+var orgUserSchema = require('../schema/orgUserSchema');
 var userSchema = require('../schema/userSchema');
 var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
@@ -45,27 +46,53 @@ UserModel.prototype.validateUser = function(userObject){
 	return new Promise(function(resolve, reject){
 		try{
 			console.log(userObject);
-			userSchema.findOne({'user_name': userObject.user_name, 'password': userObject.password}, {}, function(err, response){
-				console.log("err ",err);
-				if(err){
-					console.log(err);
-					serverResponse.error = 1;
-					serverResponse.response = err;
-					reject(serverResponse);
-				}
-				else{
-					console.log(response);
-					if(response){
-						serverResponse.success = 1;
-						serverResponse.response = response;
-						resolve(serverResponse);
-					} else {
+
+			if(userObject.user_name.split('.')[1] === "com" ) {
+				userSchema.findOne({'user_name': userObject.user_name, 'password': userObject.password}, {}, function(err, response){
+					console.log("err ",err);
+					if(err){
+						console.log(err);
 						serverResponse.error = 1;
-						serverResponse.response = {errmsg: 'Invalid Credentials Provided.'};
+						serverResponse.response = err;
 						reject(serverResponse);
 					}
-				}
-			});
+					else{
+						console.log(response);
+						if(response){
+							serverResponse.success = 1;
+							serverResponse.response = response;
+							resolve(serverResponse);
+						} else {
+							serverResponse.error = 1;
+							serverResponse.response = {errmsg: 'Invalid Credentials Provided.'};
+							reject(serverResponse);
+						}
+					}
+				});
+			} else {
+				orgUserSchema.findOne({'org_usernam': userObject.user_name, 'org_password': userObject.password}, {}, function(err, response){
+					console.log("err ",err);
+					if(err){
+						console.log(err);
+						serverResponse.error = 1;
+						serverResponse.response = err;
+						reject(serverResponse);
+					}
+					else{
+						console.log(response);
+						if(response){
+							serverResponse.success = 1;
+							serverResponse.response = response;
+							resolve(serverResponse);
+						} else {
+							serverResponse.error = 1;
+							serverResponse.response = {errmsg: 'Invalid Credentials Provided.'};
+							reject(serverResponse);
+						}
+					}
+				});
+			}
+				
 		} catch(e){
 			console.log(e);
 			serverResponse.error = 1;
