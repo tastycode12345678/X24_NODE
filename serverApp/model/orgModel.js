@@ -27,8 +27,8 @@ OrgModel.prototype.createOrg = function(record){
 				}else{
 
 
-					var queryStr = "SELECT * FROM ORGANIZATION WHERE ID = $1";
-					client.query(queryStr, [record.orgid], function(err, result) {
+					var queryStr = "INSERT INTO ORGANIZATION (name, address) values ($1, $2)";
+					client.query(queryStr, [record.name, record.address], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
 						console.log("err", err);
