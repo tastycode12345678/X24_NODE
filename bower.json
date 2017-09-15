@@ -1,0 +1,6 @@
+{
+  "name": "x24spartans",
+  "dependencies": {
+    "angular": "~1.5.x"
+  }
+}
