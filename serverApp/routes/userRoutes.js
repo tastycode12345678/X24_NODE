@@ -74,7 +74,6 @@ module.exports = function(app) {
 		});
 	});
 
-
 	app.post('/deleteuser', function(req, res){
 		UserModel.deleteUser(req.body).then(function(response){
 			res.send(response);

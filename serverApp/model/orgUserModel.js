@@ -25,17 +25,16 @@ OrgUserModel.prototype.createOrgUser = function(record){
 					reject(that.serverResponse);
 				}else{
 
-					var queryStr = "SELECT * FROM orguser WHERE ID = $1";
-					client.query(queryStr, [record.orgid], function(err, result) {
+					var queryStr = "INSERT INTO public.orguser(orgid, tfpid, is_adminuser, org_username, org_password, active) VALUES ($1, $2, $3, $4, $5, $6)";
+					client.query(queryStr, [record.orgid, record.tfpid, record.is_adminuser, record.org_username, record.org_password, record.active], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
-						console.log("err", err);
 						if(err) {
 							that.serverResponse.error = 1;
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
-							if(result.rows.length > 0){
+							if(result.rows){
 								that.serverResponse.success = 1;
 								that.serverResponse.response = {isOrgRegistered:true};
 								resolve(that.serverResponse);
