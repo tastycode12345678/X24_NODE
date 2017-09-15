@@ -92,7 +92,7 @@ UserModel.prototype.validateUser = function(record){
 							}else{
 								if(result.rows.length){
 									that.serverResponse.success = 1;
-									that.serverResponse.response = result.rows;
+									that.serverResponse.response = {isVisitor:true, tfpid:result.rows[0].tfpid};
 									resolve(that.serverResponse);
 								}else{
 									that.serverResponse.success = 0;
