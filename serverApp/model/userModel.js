@@ -51,7 +51,7 @@ UserModel.prototype.createUser = function(record){
 							}
 						});*/
 						that.serverResponse.success = 1;
-						that.serverResponse.response = {inserted:true};
+						that.serverResponse.response = record;
 						resolve(that.serverResponse);	
 					});					
 				}
