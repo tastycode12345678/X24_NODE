@@ -31,7 +31,7 @@ UserModel.prototype.createUser = function(record){
 					query.on('end', function() {					
 						done();
 						that.serverResponse.success = 1;
-						that.serverResponse.response = {"insrted":true};
+						that.serverResponse.response = record;
 						resolve(that.serverResponse);
 					});
 
