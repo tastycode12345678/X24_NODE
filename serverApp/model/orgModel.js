@@ -37,7 +37,7 @@ OrgModel.prototype.createOrg = function(record){
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
-							if(result.rows.length > 0){
+							if(result.rows){
 								that.serverResponse.success = 1;
 								that.serverResponse.response = {isOrgRegistered:true};
 								resolve(that.serverResponse);
