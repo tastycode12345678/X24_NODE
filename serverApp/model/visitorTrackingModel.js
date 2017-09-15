@@ -62,7 +62,7 @@ VisitorTrackingModel.prototype.getAllVisitors = function(visitorObj){
 				}else{
 
 
-					var queryStr = "SELECT t.fname, t.lname, t.email, t.phone_number, v.visited, v.accepted, v.rejected, v.additional_person FROM visitortracking as v, tfpuser as t WHERE 't.id' = 'v.tfpid'";
+					var queryStr = "SELECT t.fname, t.lname, t.email, t.phone_number, v.visited, v.accepted, v.rejected, v.additional_person FROM visitortracking as v INNER JOIN tfpuser as t ON 't.id' = 'v.tfpid'";
 					client.query(queryStr, function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
