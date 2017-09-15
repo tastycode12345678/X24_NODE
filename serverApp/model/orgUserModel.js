@@ -49,7 +49,7 @@ OrgUserModel.prototype.createOrgUser = function(record){
 											var email = res["rows"][0].email;
 												
 											new mailer.Mail({
-												from: 'sachinranvir1024@gmail.com',
+												from: 'care.trustfactor@gmail.com',
 												to: email,
 												subject: 'My Subject',
 												body: 'My body',

@@ -34,9 +34,7 @@ UserModel.prototype.createUser = function(record){
 						that.serverResponse.success = 1;
 						that.serverResponse.response = record;
 						resolve(that.serverResponse);
-					});
-
-					
+					});					
 				}
 			});
 
@@ -222,6 +220,46 @@ UserModel.prototype.getUserById = function(record){
 						//call `done()` to release the client back to the pool						
 						done();	
 						console.log("err", err);
+						if(err) {
+							that.serverResponse.error = 1;
+							that.serverResponse.response = err;
+							reject(that.serverResponse);
+						}else{
+							that.serverResponse.success = 1;
+							that.serverResponse.response = result["rows"];
+							resolve(that.serverResponse);
+						}
+					});
+					
+				}
+			});
+
+		} catch(err){
+			that.serverResponse.error = 1;
+			that.serverResponse.response = err.message;
+			reject(that.serverResponse);
+		}
+	});
+};
+
+
+UserModel.prototype.getUserByEmail = function(record){
+	var that = this;
+	return new Promise(function(resolve, reject){
+		try{
+			pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+				if(err) {	
+					done();			
+					that.serverResponse.error = 1;
+					that.serverResponse.response = err;
+					reject(that.serverResponse);
+				}else{
+
+
+					var queryStr = "SELECT * FROM tfpuser where email = $1";
+					client.query(queryStr, [record.email], function(err, result) {
+						//call `done()` to release the client back to the pool						
+						done();	
 						if(err) {
 							that.serverResponse.error = 1;
 							that.serverResponse.response = err;
