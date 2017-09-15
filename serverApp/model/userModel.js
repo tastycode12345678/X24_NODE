@@ -76,14 +76,13 @@ UserModel.prototype.validateUser = function(record){
 					that.serverResponse.response = err;
 					reject(that.serverResponse);
 				}else{
-					
-					/* if(record.user_name.match(".com")){
-						var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";						
+					var queryStr = "";
+					var recArr = [];
+					if(record.user_name.match(".com")){
+						queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
 					}else{
-						var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";	
-					} */
-					
-					var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";	
+						queryStr = "SELECT * FROM orguser WHERE org_username = $1 and org_password = $2";	
+					}						
 					client.query(queryStr, [record.user_name, record.pass], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
