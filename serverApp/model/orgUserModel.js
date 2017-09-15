@@ -1,6 +1,7 @@
 var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
 const crypto = require('crypto');
+var mailer = require('node-mailer');
 var pg = require('pg');
 	pg.defaults.ssl = true;
 	pg.defaults.poolSize = 20;
@@ -28,16 +29,50 @@ OrgUserModel.prototype.createOrgUser = function(record){
 					var queryStr = "INSERT INTO public.orguser(orgid, tfpid, is_adminuser, org_username, org_password, active) VALUES ($1, $2, $3, $4, $5, $6)";
 					client.query(queryStr, [record.orgid, record.tfpid, record.is_adminuser, record.org_username, record.org_password, record.active], function(err, result) {
 						//call `done()` to release the client back to the pool						
-						done();	
 						if(err) {
+							done();	
 							that.serverResponse.error = 1;
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
 							if(result.rows){
-								that.serverResponse.success = 1;
-								that.serverResponse.response = {isOrgRegistered:true};
-								resolve(that.serverResponse);
+								
+								var innerQuery = "SELECT * FROM tfpuser WHERE id = $1";
+								client.query(innerQuery, [record.tfpid], function(err, res){
+									done();	
+									if(err) {
+										that.serverResponse.error = 1;
+										that.serverResponse.response = err;
+										reject(that.serverResponse);
+									}else{
+										if(res["rows"].length){
+											var email = res["rows"][0].email;
+												
+											new mailer.Mail({
+												from: 'sachinranvir1024@gmail.com',
+												to: email,
+												subject: 'My Subject',
+												body: 'My body',
+												callback: function(err, data){
+													if(err){
+														that.serverResponse.error = 1;
+														that.serverResponse.response = err;
+														reject(that.serverResponse);
+													}else{
+														console.log(data);
+														that.serverResponse.success = 1;
+														that.serverResponse.response = {sentEmail:true};
+														resolve(that.serverResponse);								
+													}
+												}
+											});											
+										}else{
+											that.serverResponse.success = 1;
+											that.serverResponse.response = {sentEmail:false};
+											resolve(that.serverResponse);
+										}
+									}									
+								});								
 							}else{
 								that.serverResponse.success = 1;
 								that.serverResponse.response = {isOrgRegistered:false};
