@@ -166,8 +166,8 @@ UserModel.prototype.updateUser = function(record){
 					reject(that.serverResponse);
 				}else{
 
-					var queryStr = "UPDATE tfpuser SET fname = $1, lname = $2, email = $3, user_name = $4, pass = $5, phone_number = $6, profile_pic = $7, background_check = $8, active = $9 WHERE ID = $10";
-					var query = client.query(queryStr, [record.fname, record.lname, record.email, record.user_name, record.pass, record.phone_number, record.profile_pic, record.background_check, record.active, record.id]);
+					var queryStr = "UPDATE tfpuser SET name = $1, email = $2, user_name = $3, pass = $4, phone_number = $5, profile_pic = $6, background_check = $7, active = $8 WHERE ID = $9";
+					var query = client.query(queryStr, [record.name, record.email, record.email, record.pass, record.phone_number, record.profile_pic, record.background_check, record.active, record.id]);
 					query.on('end', function() {
 						done();
 						that.serverResponse.success = 1;
