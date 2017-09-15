@@ -80,29 +80,63 @@ UserModel.prototype.validateUser = function(record){
 					var recArr = [];
 					if(record.name.match(".com")){
 						queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
-					}else{
-						queryStr = "SELECT * FROM orguser WHERE org_username = $1 and org_password = $2";	
-					}						
-					client.query(queryStr, [record.name, record.pass], function(err, result) {
-						//call `done()` to release the client back to the pool						
-						done();	
-						console.log("err", err);
-						if(err) {
-							that.serverResponse.error = 1;
-							that.serverResponse.response = err;
-							reject(that.serverResponse);
-						}else{
-							if(result.rows.length){
-								that.serverResponse.success = 1;
-								that.serverResponse.response = result.rows;
-								resolve(that.serverResponse);
+						client.query(queryStr, [record.name, record.pass], function(err, result) {
+							//call `done()` to release the client back to the pool						
+							done();	
+							console.log("err", err);
+							if(err) {
+								that.serverResponse.error = 1;
+								that.serverResponse.success = 0;
+								that.serverResponse.response = err;
+								reject(that.serverResponse);
 							}else{
-								that.serverResponse.success = 1;
-								that.serverResponse.response = {isOrgRegistered:false};
-								resolve(that.serverResponse);
+								if(result.rows.length){
+									that.serverResponse.success = 1;
+									that.serverResponse.response = result.rows;
+									resolve(that.serverResponse);
+								}else{
+									that.serverResponse.success = 0;
+									that.serverResponse.response = null;
+									resolve(that.serverResponse);
+								}
 							}
-						}
-					});
+						});
+					}else{
+						queryStr = "SELECT * FROM orguser WHERE org_username = $1 and org_password = $2";							
+						client.query(queryStr, [record.name, record.pass], function(err, result) {
+							//call `done()` to release the client back to the pool						
+							done();	
+							console.log("err", err);
+							if(err) {
+								that.serverResponse.error = 1;
+								that.serverResponse.success = 0;
+								that.serverResponse.response = err;
+								reject(that.serverResponse);
+							}else{
+								if(result.rows.length){
+									if(result.rows[0].is_adminuser){
+										if(result.rows[0].is_adminuser.toLowerCase() === "true"){
+											that.serverResponse.success = 1;
+											that.serverResponse.response = {isOrgRegister:true}
+											resolve(that.serverResponse);
+										}else if(result.rows[0].is_adminuser.toLowerCase() === "false"){
+											that.serverResponse.success = 1;
+											that.serverResponse.response = {isOrgRegister:false}
+											resolve(that.serverResponse);
+										}										
+									}else{
+										that.serverResponse.success = 0;
+										that.serverResponse.response = null;
+										resolve(that.serverResponse);
+									}
+								}else{
+									that.serverResponse.success = 0;
+									that.serverResponse.response = null;
+									resolve(that.serverResponse);
+								}
+							}
+						});
+					}						
 
 				}
 			});
