@@ -35,7 +35,7 @@ OrgUserModel.prototype.createOrgUser = function(record){
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
-							if(result.rows){
+							if(result.rows.length){
 								
 								var innerQuery = "SELECT * FROM tfpuser WHERE id = $1";
 								client.query(innerQuery, [record.tfpid], function(err, res){

@@ -92,8 +92,7 @@ UserModel.prototype.validateUser = function(record){
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
-							console.log("result ", result);
-							if(result.rows){
+							if(result.rows.length){
 								that.serverResponse.success = 1;
 								that.serverResponse.response = {isOrgRegistered:true};
 								resolve(that.serverResponse);
