@@ -30,8 +30,7 @@ UserModel.prototype.createUser = function(record){
 					var query =  client.query(queryStr, [record.fname, record.lname, record.email, record.user_name, record.pass, record.phone_number, record.profile_pic, record.background_check, record.active ]);
 						//call `done()` to release the client back to the pool
 					query.on('end', function() {					
-						done();	
-						console.log("err", err);
+						done();
 						that.serverResponse.success = 1;
 						that.serverResponse.response = {insrted:true};
 						resolve(that.serverResponse);
