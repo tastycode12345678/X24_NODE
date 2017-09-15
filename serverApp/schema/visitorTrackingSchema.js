@@ -4,17 +4,31 @@ const crypto = require('crypto');
 
 var visitorTrackingSchema = mongoose.Schema({
 	tfp_id: {
-		type:String,
-		required: true
+		type:String
 	},
 	visiting_date: {
-		type:String,
-		required: true
+		type:String
 	},
 	org_id:{
+		type:String
+	},
+	visited :{
 		type:String,
-		required: true
+		default: "false"
+	},
+	accepted :{
+		type:String,
+		default: "false"
+	},
+	rejected :{
+		type:String,
+		default: "false"
+	},
+	additional_persons :{
+		type:String,
+		default: "false"
 	}
+
 });
 
 module.exports = mongoose.model(CONSTANT.SCHEMA.VISITOR_TRACKING, visitorTrackingSchema);

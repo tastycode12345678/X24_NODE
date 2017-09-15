@@ -27,6 +27,10 @@ var userSchema = mongoose.Schema({
 	background_check:{
 		type: String,
 		default: "false"
+	},
+	active:{
+		type:Boolean,
+		default:false
 	}
 });
 

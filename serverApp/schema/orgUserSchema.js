@@ -15,6 +15,21 @@ var orgUserSchema = mongoose.Schema({
 		type:Boolean,
 		required: true,
 		default:false
+	},
+	org_usernam:{
+		type:Boolean,
+		required: true,
+		default:false
+	},
+	org_password:{
+		type:Boolean,
+		required: true,
+		default:false
+	},
+	active:{
+		type:Boolean,
+		required: true,
+		default:false
 	}
 });
 
