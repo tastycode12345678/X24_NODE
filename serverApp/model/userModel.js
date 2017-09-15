@@ -33,7 +33,7 @@ UserModel.prototype.createUser = function(record){
 						console.log(err, res);
 						done();				
 												
-						new mailer.Mail({
+						/*new mailer.Mail({
 							from: 'care.trustfactor@gmail.com',
 							to: record.email,
 							subject: 'My Subject',
@@ -49,8 +49,10 @@ UserModel.prototype.createUser = function(record){
 									resolve(that.serverResponse);								
 								}
 							}
-						});
-						
+						});*/
+						that.serverResponse.success = 1;
+						that.serverResponse.response = {inserted:true};
+						resolve(that.serverResponse);	
 					});					
 				}
 			});
@@ -74,8 +76,14 @@ UserModel.prototype.validateUser = function(record){
 					that.serverResponse.response = err;
 					reject(that.serverResponse);
 				}else{
-
-					var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
+					
+					/* if(record.user_name.match(".com")){
+						var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";						
+					}else{
+						var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";	
+					} */
+					
+					var queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";	
 					client.query(queryStr, [record.user_name, record.pass], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
@@ -85,7 +93,7 @@ UserModel.prototype.validateUser = function(record){
 							that.serverResponse.response = err;
 							reject(that.serverResponse);
 						}else{
-							if(result.rows.length > 0){
+							if(result.rows){
 								that.serverResponse.success = 1;
 								that.serverResponse.response = {isOrgRegistered:true};
 								resolve(that.serverResponse);
