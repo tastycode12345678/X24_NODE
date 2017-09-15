@@ -1,37 +1,60 @@
-var orgUserSchema = require('../schema/orgUserSchema');
 var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
 const crypto = require('crypto');
+var pg = require('pg');
+	pg.defaults.ssl = true;
+	pg.defaults.poolSize = 20;
 
 function OrgUserModel(){
-
-}
-
-OrgUserModel.prototype.createOrgUser = function(orgObject){
-	var serverResponse = {
+	this.serverResponse = {
 		'success': 0,
 		'error': 0,
 		'response': {}
 	}
+}
+
+OrgUserModel.prototype.createOrgUser = function(record){
+	var that = this;
 	return new Promise(function(resolve, reject){
 		try{
-			orgUserSchema.create(orgObject, function(err, response){
-				if(err){
-					console.log(err);
-					serverResponse.error = 1;
-					serverResponse.response = err;
-					reject(serverResponse);
-				}
-				else{
-					serverResponse.success = 1;
-					serverResponse.response = true;
-					resolve(serverResponse);
+			pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+				if(err) {	
+					done();			
+					that.serverResponse.error = 1;
+					that.serverResponse.response = err;
+					reject(that.serverResponse);
+				}else{
+
+					var queryStr = "SELECT * FROM orguser WHERE ID = $1";
+					client.query(queryStr, [record.orgid], function(err, result) {
+						//call `done()` to release the client back to the pool						
+						done();	
+						console.log("err", err);
+						if(err) {
+							that.serverResponse.error = 1;
+							that.serverResponse.response = err;
+							reject(that.serverResponse);
+						}else{
+							if(result.rows.length > 0){
+								that.serverResponse.success = 1;
+								that.serverResponse.response = {isOrgRegistered:true};
+								resolve(that.serverResponse);
+							}else{
+								that.serverResponse.success = 1;
+								that.serverResponse.response = {isOrgRegistered:false};
+								resolve(that.serverResponse);
+							}
+						}
+					});
+
+					
 				}
 			});
-		} catch(e){
-			serverResponse.error = 1;
-			serverResponse.response = e;
-			reject(serverResponse);
+
+		} catch(err){
+			that.serverResponse.error = 1;
+			that.serverResponse.response = err.message;
+			reject(that.serverResponse);
 		}
 	});
 }
