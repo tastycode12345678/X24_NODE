@@ -4,39 +4,28 @@ const crypto = require('crypto');
 
 var userSchema = mongoose.Schema({
 	fname: {
-		type:String,
-		required: true
+		type:String
 	},
 	lname: {
-		type:String,
-		required: true
+		type:String
 	},
 	email:{
-		type: String,
-		required: false
+		type: String
 	},
 	user_name:{
-		type:String,
-		required: true
+		type:String
 	},
 	password: {
-		type:String,
-		required: true,
-		validate:[function(password){
-			return password.length >= 8;
-		}, 'Password should be minimum 8 characters in length.']
+		type:String
 	},
 	phone_number: {
-		type: Number,
-		required: true
+		type: Number
 	},
 	profile_pic: {
-		type: String,
-		required: false
+		type: String
 	},
 	background_check:{
 		type: String,
-		required: true,
 		default: "false"
 	}
 });

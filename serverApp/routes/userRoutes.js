@@ -23,13 +23,11 @@ var upload = multer({ storage: storage }).any();
 module.exports = function(app) {
 
 	app.post('/createuser', function(req, res){
-		console.log(req.body);
 		UserModel.createUser(req.body).then(function(response){
 			console.log("Create User"+JSON.stringify(response));
 			res.send(response);
 		}, function(err){
 			res.status(500);
-			console.log("Create User"+err);
 			res.send(err);
 		});
 	});
