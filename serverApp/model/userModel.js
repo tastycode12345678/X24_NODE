@@ -1,6 +1,7 @@
 var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
 const crypto = require('crypto');
+var mailer = require('node-mailer');
 
 var pg = require('pg');
 	pg.defaults.ssl = true;
@@ -30,10 +31,26 @@ UserModel.prototype.createUser = function(record){
 					var query =  client.query(queryStr, [record.fname, record.lname, record.email, record.user_name, record.pass, record.phone_number, record.profile_pic, record.background_check, record.active]);
 					query.on('end', function(err, res) {
 						console.log(err, res);
-						done();
-						that.serverResponse.success = 1;
-						that.serverResponse.response = record;
-						resolve(that.serverResponse);
+						done();				
+												
+						new mailer.Mail({
+							from: 'care.trustfactor@gmail.com',
+							to: record.email,
+							subject: 'My Subject',
+							body: 'Hi '+record.fname+' '+record.lname+',\r\n\r\nThank you for your interest in TheTruth Factor! We are pleased to inform you that you have registered successfully.\r\nPlease use the following credentials:\r\nUsername - '+record.user_name+'\r\nPassword - '+record.pass+'\r\n\r\nCheers!\r\nTeam Trust Factor.',
+							callback: function(err, data){
+								if(err){
+									that.serverResponse.error = 1;
+									that.serverResponse.response = err;
+									reject(that.serverResponse);
+								}else{
+									that.serverResponse.success = 1;
+									that.serverResponse.response = {sentEmail:true};
+									resolve(that.serverResponse);								
+								}
+							}
+						});
+						
 					});					
 				}
 			});
