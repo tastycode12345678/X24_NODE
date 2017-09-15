@@ -12,4 +12,13 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/getAllVisitors', function(req, res){
+		VisitorTrackingModel.getAllVisitors(req.body).then(function(response){
+			res.send(response);
+		}, function(err){
+			res.status(500);
+			res.send(err);
+		});
+	});
+
 }

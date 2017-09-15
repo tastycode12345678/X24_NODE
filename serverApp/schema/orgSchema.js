@@ -10,11 +10,6 @@ var orgSchema = mongoose.Schema({
 	address: {
 		type:String,
 		required: true
-	},
-	is_adminuser:{
-		type:Boolean,
-		required: true,
-		default:false
 	}
 });
 

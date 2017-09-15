@@ -1,13 +1,13 @@
-var visitorTrackingSchema = require('../schema/visitorTrackingSchema');
+var orgUserSchema = require('../schema/orgUserSchema');
 var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
 const crypto = require('crypto');
 
-function VisitorTrackingModel(){
+function OrgUserModel(){
 
 }
 
-VisitorTrackingModel.prototype.trackVisitor = function(visitorObj){
+OrgUserModel.prototype.createOrgUser = function(orgObject){
 	var serverResponse = {
 		'success': 0,
 		'error': 0,
@@ -15,7 +15,7 @@ VisitorTrackingModel.prototype.trackVisitor = function(visitorObj){
 	}
 	return new Promise(function(resolve, reject){
 		try{
-			visitorTrackingSchema.create(visitorObj, function(err, response){
+			orgUserSchema.create(orgObject, function(err, response){
 				if(err){
 					console.log(err);
 					serverResponse.error = 1;
@@ -36,4 +36,4 @@ VisitorTrackingModel.prototype.trackVisitor = function(visitorObj){
 	});
 }
 
-module.exports.VisitorTrackingModel = new VisitorTrackingModel();
+module.exports.OrgUserModel = new OrgUserModel();

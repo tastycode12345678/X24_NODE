@@ -36,6 +36,45 @@ UserModel.prototype.createUser = function(userObject){
 	});
 };
 
+UserModel.prototype.validateUser = function(userObject){
+	var serverResponse = {
+		'success': 0,
+		'error': 0,
+		'response': {}
+	}
+	return new Promise(function(resolve, reject){
+		try{
+			console.log(userObject);
+			userSchema.findOne({'user_name': userObject.user_name, 'password': userObject.password}, {}, function(err, response){
+				console.log("err ",err);
+				if(err){
+					console.log(err);
+					serverResponse.error = 1;
+					serverResponse.response = err;
+					reject(serverResponse);
+				}
+				else{
+					console.log(response);
+					if(response){
+						serverResponse.success = 1;
+						serverResponse.response = response;
+						resolve(serverResponse);
+					} else {
+						serverResponse.error = 1;
+						serverResponse.response = {errmsg: 'Invalid Credentials Provided.'};
+						reject(serverResponse);
+					}
+				}
+			});
+		} catch(e){
+			console.log(e);
+			serverResponse.error = 1;
+			serverResponse.response = e;
+			reject(serverResponse);
+		}
+	});
+};
+
 UserModel.prototype.getAllUsers = function(){
 	var serverResponse = {
 		'success': 0,
@@ -146,41 +185,6 @@ UserModel.prototype.getUserById = function(userObject){
 	return new Promise(function(resolve, reject){
 		try{
 			userSchema.findOne({'_id': userObject.userid}, function(err, response){
-				if(err){
-					console.log(err);
-					serverResponse.error = 1;
-					serverResponse.response = err;
-					reject(serverResponse);
-				}
-				else{
-					if(response){
-						serverResponse.success = 1;
-						serverResponse.response = response;
-						resolve(serverResponse);
-					}else{
-						serverResponse.error = 1;
-						serverResponse.response = {'errmsg': 'User not found.'};
-						reject(serverResponse);
-					}
-				}
-			});
-		} catch(e){
-			serverResponse.error = 1;
-			serverResponse.response = e;
-			reject(serverResponse);
-		}
-	});
-};
-
-UserModel.prototype.validateUser = function(userObject){
-	var serverResponse = {
-		'success': 0,
-		'error': 0,
-		'response': {}
-	}
-	return new Promise(function(resolve, reject){
-		try{
-			userSchema.findOne({'username': userObject.username, 'password': userObject.password}, function(err, response){
 				if(err){
 					console.log(err);
 					serverResponse.error = 1;
