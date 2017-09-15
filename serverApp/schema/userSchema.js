@@ -31,6 +31,15 @@ var userSchema = mongoose.Schema({
 	active:{
 		type:Boolean,
 		default:false
+	},
+	pan_no: {
+		type:String
+	},
+	ssn: {
+		type:String
+	},
+	tfp_id: {
+		type:String
 	}
 });
 

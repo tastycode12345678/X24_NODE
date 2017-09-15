@@ -27,6 +27,9 @@ var visitorTrackingSchema = mongoose.Schema({
 	additional_persons :{
 		type:String,
 		default: "false"
+	},
+	aadhar_no: {
+		type:String
 	}
 
 });
