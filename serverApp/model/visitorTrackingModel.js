@@ -73,7 +73,7 @@ VisitorTrackingModel.prototype.getAllVisitors = function(visitorObj){
 							reject(that.serverResponse);
 						}else{							
 							that.serverResponse.success = 1;
-							that.serverResponse.response = result.["rows"];
+							that.serverResponse.response = result["rows"];
 							resolve(that.serverResponse);							
 						}
 					});
