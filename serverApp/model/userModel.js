@@ -117,7 +117,7 @@ UserModel.prototype.getAllUsers = function(){
 							reject(that.serverResponse);
 						}else{
 							that.serverResponse.success = 1;
-							that.serverResponse.response = result;
+							that.serverResponse.response = result["rows"];
 							resolve(that.serverResponse);
 						}
 					});
@@ -229,7 +229,7 @@ UserModel.prototype.getUserById = function(record){
 							reject(that.serverResponse);
 						}else{
 							that.serverResponse.success = 1;
-							that.serverResponse.response = result;
+							that.serverResponse.response = result["rows"];
 							resolve(that.serverResponse);
 						}
 					});
