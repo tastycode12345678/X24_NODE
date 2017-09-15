@@ -78,12 +78,12 @@ UserModel.prototype.validateUser = function(record){
 				}else{
 					var queryStr = "";
 					var recArr = [];
-					if(record.user_name.match(".com")){
+					if(record.email.match(".com")){
 						queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
 					}else{
 						queryStr = "SELECT * FROM orguser WHERE org_username = $1 and org_password = $2";	
 					}						
-					client.query(queryStr, [record.user_name, record.pass], function(err, result) {
+					client.query(queryStr, [record.email, record.pass], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
 						console.log("err", err);
