@@ -92,10 +92,12 @@ UserModel.prototype.validateUser = function(record){
 							}else{
 								if(result.rows.length){
 									that.serverResponse.success = 1;
+									that.serverResponse.error = 0;
 									that.serverResponse.response = {isVisitor:true, tfpid:result.rows[0].tfpid};
 									resolve(that.serverResponse);
 								}else{
 									that.serverResponse.success = 0;
+									that.serverResponse.error = 1;
 									that.serverResponse.response = null;
 									resolve(that.serverResponse);
 								}
@@ -117,20 +119,24 @@ UserModel.prototype.validateUser = function(record){
 									if(result.rows[0].is_adminuser){
 										if(result.rows[0].is_adminuser.toLowerCase() === "true"){
 											that.serverResponse.success = 1;
+											that.serverResponse.error = 0;
 											that.serverResponse.response = {isOrgRegister:true}
 											resolve(that.serverResponse);
 										}else if(result.rows[0].is_adminuser.toLowerCase() === "false"){
 											that.serverResponse.success = 1;
+											that.serverResponse.error = 0;
 											that.serverResponse.response = {isOrgRegister:false}
 											resolve(that.serverResponse);
 										}										
 									}else{
 										that.serverResponse.success = 0;
+										that.serverResponse.error = 1;
 										that.serverResponse.response = null;
 										resolve(that.serverResponse);
 									}
 								}else{
 									that.serverResponse.success = 0;
+									that.serverResponse.error = 1;
 									that.serverResponse.response = null;
 									resolve(that.serverResponse);
 								}
