@@ -67,8 +67,10 @@ module.exports = function(app) {
 
 	app.post('/login', function(req, res){
 		UserModel.validateUser(req.body).then(function(response){
+			console.log("response-- ", response);
 			res.send(response);
 		}, function(err){
+			console.log("err-- ", err);
 			//res.status(500);
 			res.send(err);
 		});
