@@ -31,10 +31,22 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
 					serverResponse.response = err;
 					reject(serverResponse);
 				}else{
-					//All is good. Print the body
-					serverResponse.success = 1;
-					serverResponse.response = result;
-					resolve(serverResponse);					
+					//All is good. Print the body					
+					if(result.images){
+						if(result.images.length){
+							serverResponse.success = 1;
+							serverResponse.response = result.images[0].classifiers[0].classes[0];
+							resolve(serverResponse);						
+						}else{
+							serverResponse.error = 1;
+							serverResponse.response = null;
+							reject(serverResponse);
+						}
+					}else{
+						serverResponse.error = 1;
+						serverResponse.response = null;
+						reject(serverResponse);
+					}			
 				}
 			});			
 		} catch(e){
