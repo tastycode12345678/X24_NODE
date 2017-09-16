@@ -33,16 +33,22 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
 				}else{				
 					if(result.images){
 						if(result.images.length){
-							if(result.images[0].classifiers.length){
-								if(result.images[0].classifiers[0].classes.length){
-									serverResponse.success = 1;
-									serverResponse.response = result.images[0].classifiers[0].classes[0];
-									resolve(serverResponse);
-								}else{	
+							if(result.images[0].classifiers){
+								if(result.images[0].classifiers.length){
+									if(result.images[0].classifiers[0].classes){
+										serverResponse.success = 1;
+										serverResponse.response = result.images[0].classifiers[0].classes[0];
+										resolve(serverResponse);
+									}else{	
+										serverResponse.error = 1;
+										serverResponse.response = result.images[0].classifiers;
+										reject(serverResponse);
+									}								
+								}else{
 									serverResponse.error = 1;
-									serverResponse.response = result.images[0].classifiers;
+									serverResponse.response = null;
 									reject(serverResponse);
-								}								
+								}
 							}else{
 								serverResponse.error = 1;
 								serverResponse.response = null;
