@@ -19,19 +19,18 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
 	return new Promise(function(resolve, reject){
 		try{
 			var v3 = new VisualRecognitionV3({
-				api_key: '776ef8d8e3bdc89c17fcac7eea845cc4885dcea1',
-  				version_date: "2017-09-15"
+				api_key: '94190f7444d1dbabb97a70c0315d0223cb058edd',
+  				version_date: "2017-09-16"
 			});
 			v3.classify({
 				url: "https://visistors-x24.herokuapp.com/images/sangram.jpeg",
-				classifier_ids: "TFVRSkill_1696153824"
+				classifier_ids: "TrustedFactorVRService_1054403198"
 			}, function(err, result){
 				if (err){
 					serverResponse.error = 1;
 					serverResponse.response = err;
 					reject(serverResponse);
-				}else{
-					//All is good. Print the body					
+				}else{				
 					if(result.images){
 						if(result.images.length){
 							serverResponse.success = 1;
