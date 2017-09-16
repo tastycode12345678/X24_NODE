@@ -78,9 +78,9 @@ UserModel.prototype.validateUser = function(record){
 				}else{
 					var queryStr = "";
 					var recArr = [];
-					if(record.name.match(".com")){
+					if(record.user_name.match(".com")){
 						queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
-						client.query(queryStr, [record.name, record.pass], function(err, result) {
+						client.query(queryStr, [record.user_name, record.pass], function(err, result) {
 							//call `done()` to release the client back to the pool						
 							done();	
 							console.log("err", err);
@@ -103,7 +103,7 @@ UserModel.prototype.validateUser = function(record){
 						});
 					}else{
 						queryStr = "SELECT * FROM orguser WHERE org_username = $1 and org_password = $2";							
-						client.query(queryStr, [record.name, record.pass], function(err, result) {
+						client.query(queryStr, [record.user_name, record.pass], function(err, result) {
 							//call `done()` to release the client back to the pool						
 							done();	
 							console.log("err", err);
