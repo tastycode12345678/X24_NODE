@@ -30,7 +30,8 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
 					serverResponse.error = 1;
 					serverResponse.response = err;
 					reject(serverResponse);
-				}else{				
+				}else{	
+					console.log(result);
 					if(result.images){
 						if(result.images.length){
 							if(result.images[0].classifiers){
