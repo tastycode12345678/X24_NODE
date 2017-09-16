@@ -23,7 +23,7 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
   				version_date: "2017-09-16"
 			});
 			v3.classify({
-				url: "https://visistors-x24.herokuapp.com/images/sangram.jpeg",
+				url: "https://visistors-x24.herokuapp.com/images/Naazneen.jpeg",
 				classifier_ids: "TrustedFactorVRService_1054403198"
 			}, function(err, result){
 				if (err){
