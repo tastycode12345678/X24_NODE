@@ -78,6 +78,7 @@ UserModel.prototype.validateUser = function(record){
 				}else{
 					var queryStr = "";
 					var recArr = [];
+					console.log("record", record);
 					if(record.user_name.match(".com")){
 						queryStr = "SELECT * FROM tfpuser WHERE user_name = $1 and pass = $2";
 						client.query(queryStr, [record.user_name, record.pass], function(err, result) {
