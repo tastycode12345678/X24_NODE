@@ -27,9 +27,9 @@ UserModel.prototype.createUser = function(record){
 					that.serverResponse.response = err;
 					reject(that.serverResponse);
 				}else{
-					console.log(record);
-					var queryStr = "INSERT INTO public.tfpuser(name, email, user_name, pass, phone_number, profile_pic, background_check, active)VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9)";
+					var queryStr = "INSERT INTO public.tfpuser(name, email, user_name, pass, phone_number, profile_pic, background_check, active) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
 					var query =  client.query(queryStr, [record.name, record.email, record.email, record.pass, record.phone_number, record.profile_pic, record.background_check, record.active]);
+					console.log(record);
 					query.on('end', function(err, res) {
 						console.log(err, res);
 						done();				
