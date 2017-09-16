@@ -14,6 +14,7 @@
   "dependencies": {
     "async": "^1.5.0",
     "base64-stream": "^0.1.3",
+	"base64-img": "^1.0.3",
     "body-parser": "^1.14.1",
     "bower": "^1.7.7",
     "express": "^4.13.4",
