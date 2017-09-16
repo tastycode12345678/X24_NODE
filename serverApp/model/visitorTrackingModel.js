@@ -62,7 +62,7 @@ VisitorTrackingModel.prototype.getAllVisitors = function(visitorObj){
 				}else{
 
 
-					var queryStr = "SELECT visitortracking.visiting_date, visitortracking.orgid, visitortracking.id, visitortracking.visited, visitortracking.accepted, visitortracking.rejected, visitortracking.additional_person, visitortracking.tfpid, tfpuser.fname, tfpuser.lname, tfpuser.id, tfpuser.email, tfpuser.user_name, tfpuser.pass, tfpuser.phone_number, tfpuser.profile_pic, tfpuser.background_check, tfpuser.active FROM public.visitortracking, public.tfpuser WHERE visitortracking.tfpid = tfpuser.id";
+					var queryStr = "SELECT visitortracking.visiting_date, visitortracking.orgid, visitortracking.id, visitortracking.visited, visitortracking.accepted, visitortracking.rejected, visitortracking.additional_person, visitortracking.tfpid, tfpuser.name, tfpuser.id, tfpuser.email, tfpuser.user_name, tfpuser.pass, tfpuser.phone_number, tfpuser.profile_pic, tfpuser.background_check, tfpuser.active FROM public.visitortracking, public.tfpuser WHERE visitortracking.tfpid = tfpuser.id";
 					client.query(queryStr, function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
