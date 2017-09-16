@@ -2,7 +2,7 @@ var Promise = require('promise');
 var CONSTANT = require('../config/constant').CONSTANT;
 const crypto = require('crypto');
 var mailer = require('node-mailer');
-var base64Img = require('base64-img');
+
 
 var pg = require('pg');
 	pg.defaults.ssl = true;
@@ -32,11 +32,7 @@ UserModel.prototype.createUser = function(record){
 					console.log(record);
 					query.on('end', function(err, res) {
 						console.log(err, res);
-						done();				
-						
-						base64Img.img(record.profile_pic, 'images', "IBMWAT_"+new Date().getTime(), function(err, filepath) {
-							console.log("done");
-						});
+						done();						
 						
 						/*new mailer.Mail({
 							from: 'care.trustfactor@gmail.com',
