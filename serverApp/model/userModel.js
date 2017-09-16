@@ -121,12 +121,12 @@ UserModel.prototype.validateUser = function(record){
 										if(result.rows[0].is_adminuser.toLowerCase() === "true"){
 											that.serverResponse.success = 1;
 											that.serverResponse.error = 0;
-											that.serverResponse.response = {isOrgRegister:true}
+											that.serverResponse.response = {isOrgRegister:true, tfpid: result.rows[0].tfpid, orgUserId:result.rows[0].id};
 											resolve(that.serverResponse);
 										}else if(result.rows[0].is_adminuser.toLowerCase() === "false"){
 											that.serverResponse.success = 1;
 											that.serverResponse.error = 0;
-											that.serverResponse.response = {isOrgRegister:false}
+											that.serverResponse.response = {isOrgRegister:false, tfpid: result.rows[0].tfpid, orgUserId:result.rows[0].id};
 											resolve(that.serverResponse);
 										}										
 									}else{
