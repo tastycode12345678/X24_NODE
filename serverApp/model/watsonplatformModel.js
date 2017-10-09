@@ -20,7 +20,7 @@ watsonplatformModel.prototype.getWatsonInfo = function(userObject){
 		try{
 			var v3 = new VisualRecognitionV3({
 				api_key: '94190f7444d1dbabb97a70c0315d0223cb058edd',
-  				version_date: "2017-09-16"
+  				version_date: "2017-09-17"
 			});
 			v3.classify({
 				url: "https://visistors-x24.herokuapp.com/images/Naazneen.jpg",
