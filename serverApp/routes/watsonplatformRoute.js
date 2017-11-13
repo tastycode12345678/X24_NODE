@@ -15,7 +15,7 @@ module.exports = function(app) {
 		
 		var bsString = req.body.imageFile;
 		if(bsString){
-			var matches = bsString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+			/*var matches = bsString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
 			if(matches){
 				if(matches.length === 3){
 					
@@ -25,12 +25,12 @@ module.exports = function(app) {
 					var filePathDirectory = "/images/";
 					var fileName = new Date().getTime() +"."+ imageType;
 					base64_decode(matches[2], fileDirectory+fileName);				
-					/*watsonplatformModel.getWatsonInfo(baseUrl+filePathDirectory+fileName).then(function(response){
+					watsonplatformModel.getWatsonInfo(baseUrl+filePathDirectory+fileName).then(function(response){
 						res.send(response);
 					}, function(err){
 						res.status(400);
 						res.send(err);
-					});*/
+					});
 					res.send({
 						success:1,
 						error:0,
@@ -38,10 +38,15 @@ module.exports = function(app) {
 					});
 				}else{
 					res.send("Invalid base64 input");
-				}
+				}				
 			}else{
 				res.send("Invalid base64 input");
-			}
+			}*/
+			res.send({
+				success:1,
+				error:0,
+				response:{id:21}
+			});
 		}else{
 			res.send("Invalid input");
 		}
