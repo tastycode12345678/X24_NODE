@@ -32,9 +32,9 @@ module.exports = function(app) {
 						res.send(err);
 					});*/
 					res.send({
-						serverResponse.success = 1;
-						serverResponse.error = 0;
-						serverResponse.response = {tfpid:21};
+						success:1,
+						error:0,
+						response:{id:21}
 					});
 				}else{
 					res.send("Invalid base64 input");
