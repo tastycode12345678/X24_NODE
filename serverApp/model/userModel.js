@@ -282,7 +282,7 @@ UserModel.prototype.getUserById = function(record){
 
 
 					var queryStr = "SELECT * FROM tfpuser where id = $1";
-					client.query(queryStr, [record.id], function(err, result) {
+					client.query(queryStr, [/* record.id */21], function(err, result) {
 						//call `done()` to release the client back to the pool						
 						done();	
 						console.log("err", err);
