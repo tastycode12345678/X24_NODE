@@ -25,11 +25,16 @@ module.exports = function(app) {
 					var filePathDirectory = "/images/";
 					var fileName = new Date().getTime() +"."+ imageType;
 					base64_decode(matches[2], fileDirectory+fileName);				
-					watsonplatformModel.getWatsonInfo(baseUrl+filePathDirectory+fileName).then(function(response){
+					/*watsonplatformModel.getWatsonInfo(baseUrl+filePathDirectory+fileName).then(function(response){
 						res.send(response);
 					}, function(err){
 						res.status(400);
 						res.send(err);
+					});*/
+					res.send({
+						serverResponse.success = 1;
+						serverResponse.error = 0;
+						serverResponse.response = {tfpid:21};
 					});
 				}else{
 					res.send("Invalid base64 input");
